@@ -6,9 +6,10 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/22 14:02:17 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/23 12:20:16 by jpeguet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef FILLIT_H
 # define FILLIT_H
 
@@ -30,7 +31,7 @@ typedef struct		s_tetr
 	int				y;
 	int				x_tmp;
 	int				y_tmp;
-	int				lengt;
+	int				lenght;
 	int				height;
 }					t_tetr;
 
@@ -43,7 +44,7 @@ typedef struct		s_list
 typedef struct		s_valid
 {
 	unsigned short	tetri;
-	int							lengt;
+	int							lenght;
 	int							height;
 }					t_valid;
 
