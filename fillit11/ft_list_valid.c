@@ -6,7 +6,7 @@
 /*   By: jpeguet <jpeguet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 10:54:22 by jpeguet           #+#    #+#             */
-/*   Updated: 2016/11/24 13:05:03 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/24 13:19:24 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_list_valid  *ft_list_valid(int i)
 		tmp->height = height[i];
 		tmp->next = (t_list_valid *)malloc(sizeof(t_list_valid));
 		tmp = tmp->next;
+		tmp->next = NULL;
 		i++;
 	}
 	free(tetri);
