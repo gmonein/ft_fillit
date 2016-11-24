@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 08:12:15 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/22 14:14:33 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/24 13:17:14 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ t_list			*ft_new_fill(char *file)
 	{
 		readed = read(fd, buf, 20);
 		buf[20] = '\0';
-		if (!(lst->content = (t_tetr *)malloc(sizeof(t_tetr))) && ft_error(2) == -1)
-			return (NULL);
-		if ((lst->content->tetri = ft_bits(buf)) == 65535)
+		if ((lst->tetri = ft_bits(buf)) == 65535)
 			return (NULL);
 		lst->next = (t_list *)malloc(sizeof(t_list));
 		lst = lst->next;
