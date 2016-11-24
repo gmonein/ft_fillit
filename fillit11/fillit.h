@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/24 12:57:54 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/24 13:36:04 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ unsigned short		*ft_read_fllit(char *file);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
 t_list				*ft_new_fill(char *file);
-t_list_valid		*ft_list_valid(int i);
 
 void				ft_lstadd(t_list **alst, t_list *n);
 void				*ft_memcpy(void *s1, const void *s2, size_t n);

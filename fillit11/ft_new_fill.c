@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 08:12:15 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/24 13:17:14 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/24 13:40:56 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,25 @@ t_list			*ft_new_fill(char *file)
 	}
 	close(fd);
 	return ((!(readed == 0) && ft_error(5)) ? NULL : tmp);
+}
+
+int		main(int argc, char **argv)
+{
+	t_list		*lst;
+	t_list		*tmp;
+	int			valid;
+
+	lst = ft_new_fill(argv[1]);
+	tmp = lst;
+	while (lst->next != NULL)
+	{
+		printf("tetri : %hu\n", lst->tetri);
+		lst = lst->next;
+	}
+	valid = ft_check_list(tmp);
+	if (valid == 1)
+		printf("Tetriminos valide\n");
+	else
+		printf("Tetriminos invalide\n");
+	return (0);
 }

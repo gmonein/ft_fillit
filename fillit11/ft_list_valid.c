@@ -6,7 +6,7 @@
 /*   By: jpeguet <jpeguet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 10:54:22 by jpeguet           #+#    #+#             */
-/*   Updated: 2016/11/24 13:19:24 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/24 13:39:08 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static unsigned short		*height_tetri_valid(void)
 	return (height_valid);
 }
 
-t_list_valid  *ft_list_valid(int i)
+static t_list_valid  *ft_list_valid(int i)
 {
 	t_list_valid	*vlist;
 	t_list_valid	*tmp;
@@ -126,6 +126,36 @@ t_list_valid  *ft_list_valid(int i)
 }
 
 #include <stdio.h>
+int  ft_check_list(t_list *lst)
+{
+	t_list_valid	*lva;
+	t_list_valid	*b_lva;
+	short			valid;
+
+	lva = ft_list_valid(0);
+	b_lva = lva;
+	while (lst->next != NULL)
+	{
+		while (lva->next != NULL && valid != 1)
+		{
+			if ((lst->tetri | lva->tetri) == lva->tetri && (valid = 1) == 1)
+			{
+				lst->tetri = lva->tetri;
+				lst->lenght = lva->lenght;
+				lst->height = lva->height;
+			}
+			lva = lva->next;
+		}
+		lva = b_lva;
+		if (valid == 0)
+			return (0);
+		valid = 0;
+		lst = lst->next;
+	}
+	return (1);
+}
+
+/*
 int			main()
 {
 	t_list_valid	*lst;
@@ -139,3 +169,4 @@ int			main()
 	printf("tetri = %hu\n len = %hu\n height = %hu\n", lst->tetri, lst->lenght, lst->height);
 	return (0);
 }
+*/
