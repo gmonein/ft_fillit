@@ -46,6 +46,8 @@ typedef struct				s_list
 	unsigned int			*itetri;
 	unsigned int			x;
 	unsigned int			y;
+	unsigned int			f_x;
+	unsigned int			f_y;
 	struct s_data			data;
 	char					id;
 	int						last_pos;
@@ -79,8 +81,6 @@ int					ft_strlen(char *s);
 void		ft_bzero(void *s, size_t n);
 void	*ft_memset(void *ptr, int value, size_t num);
 void		ft_list_init(t_list *lst);
-unsigned long	*ft_down_tab(unsigned long *tab, int size);
-unsigned long	*ft_decal_tab(unsigned long *tab, int size, int h, char r_or_l);
 int			ft_strlen_tab_ui(unsigned int *ui);
 char		**ft_make_char_map(int size);
 char		**ft_init_map(t_list *lst, int size, char **map);

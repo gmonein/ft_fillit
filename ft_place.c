@@ -124,7 +124,7 @@ unsigned int		*ft_setmap(void)
 	return (tab);
 }
 
-unsigned long	*ft_decal_tab(unsigned long *tab, int size, int h, char r_or_l)
+unsigned int	*ft_decal_tab(unsigned int *tab, int h, char r_or_l)
 {
 	int		i;
 
@@ -132,19 +132,38 @@ unsigned long	*ft_decal_tab(unsigned long *tab, int size, int h, char r_or_l)
 	while (i < h)
 	{
 		if (r_or_l == 'l')
-			tab[i] <<= size;
+			tab[i] <<= 1;
 		else
-			tab[i] >>= size;
+			tab[i] >>= 1;
 		i++;
 	}
 	return (tab);
 }
 
+unsigned int	*ft_up_down(unsigned int *tab, int h, char h_or_d)
+{
+	int		i;
+
+	while (tab[i] != 0)
+		i++;
+	while ((i - 1) != 0)
+	{
+		if (h_or_d == 'd')
+			tab[i] = tab[i - 1];
+		else
+			tab[i - 1] = tab[i];
+		i--;
+	}
+	if (h_or_d == 'd')
+		tab[0] = 0;
+	return (tab);
+}
+
 int				ft_can_i(UI *tab, t_list *tetris, int size)
 {
-	if (tetris->x + tetris->data.len > size
-		&& tetris->y + tetris->data.height > size)
-		return (-3);
+//	if (tetris->x + tetris->data.len > size
+//		&& tetris->y + tetris->data.height > size)
+//		return (-3);
 	if (tetris->x + tetris->data.len > size)
 		return (-2);
 	if (tetris->y + tetris->data.height > size)
@@ -160,15 +179,16 @@ int				ft_can_i(UI *tab, t_list *tetris, int size)
 	return (1);
 }
 
-unsigned int	*ft_place(UI *tab, t_list tetris)
+unsigned int	*ft_place(UI *tab, t_list *tetris)
 {
 	unsigned int	*ui_tetri;
 
-	ui_tetri = ft_short_to_ul(tetris.tetri);
-	tab[tetris.y] += (ui_tetri[0] >> tetris.x);
-	tab[tetris.y + 1] += (ui_tetri[1] >> tetris.x);
-	tab[tetris.y + 2] += (ui_tetri[2] >> tetris.x);
-	tab[tetris.y + 3] += (ui_tetri[3] >> tetris.x);
+	ui_tetri = ft_short_to_ul(tetris->tetri);
+	tab[tetris->y] += (ui_tetri[0] >> tetris->x);
+	tab[tetris->y + 1] += (ui_tetri[1] >> tetris->x);
+	tab[tetris->y + 2] += (ui_tetri[2] >> tetris->x);
+	tab[tetris->y + 3] += (ui_tetri[3] >> tetris->x);
+	tetris->placed = 1;
 	return (tab);
 }
 
@@ -189,7 +209,7 @@ int				ft_find_place(UI *tab, t_list *tetris, int size)
 			return (-1);
 		tetris->x++;
 	}
-	tetris->last_pos = -1;
+	tetris->last_pos = 1;
 	return (-2);
 }
 
@@ -209,8 +229,6 @@ unsigned int		*ft_del_tetris(t_list *tetris, unsigned int *tab)
 	tab[1 + tetris->y] -= td[1];
 	tab[2 + tetris->y] -= td[2];
 	tab[3 + tetris->y] -= td[3];
-	tetris->x = 0;
-	tetris->y = 0;
 	tetris->placed = 0;
 	return (tab);
 }
@@ -228,18 +246,79 @@ unsigned int				*ft_erase_map(unsigned int *tab)
 	return (tab);
 }
 
+void					ft_save_coord(t_list *lst)
+{
+	while (lst->next != NULL)
+	{
+		lst->f_x = lst->x;
+		lst->f_y = lst->y;
+		lst = lst->next;
+	}
+}
+
+unsigned int			*solver(unsigned int *tab, t_list *lst, int size)
+{
+	int		res;
+	int		record;
+
+	record = 999;
+	if (size < record && lst->next == NULL && lst->placed == 1)
+	{
+		ft_save_coord(lst->begin);
+		record = size;
+	}
+	if (lst->last_pos == 1)
+	{
+		if (lst->past == NULL)
+		{
+			ft_list_init(lst->begin);
+			tab = solver(tab, lst->begin, size - 1);
+		}
+		else
+		{
+			tab = ft_del_tetris(lst, tab);
+			tab = ft_del_tetris(lst->past, tab);
+			tab = solver(tab, lst->past, size);
+		}
+	}
+	else
+	{
+		res = ft_find_place(tab, lst, size);
+		if (res == 1)
+			tab = ft_place(tab, lst);
+		if (res == -1)
+		{
+			tab = ft_del_tetris(lst, tab);
+			tab = ft_del_tetris(lst->past, tab);
+			ft_find_place(tab, lst->past, size + 1);
+		}
+	}
+	return (tab);
+}
+
+/*
 unsigned int			*solver(unsigned int *tab, t_list *tetris, int size)
 {
 	int		res;
+	int		try;
+	int		i;
 
+	i = 0;
 	while (tetris->next != NULL)
 	{
 		res = ft_find_place(tab, tetris, size);
-		printf("%d\n", res);
+	//	printf("%d\n", res);
 		if (res == 1)
 		{
 			printf("PLACED\n");
 			ft_place(tab, *tetris);
+	while (i < 32)
+	{
+		ft_print_ul(tab[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+	i = 0;
 			tetris = tetris->next;
 		}
 		if (res == -1 && tetris->begin != NULL)
@@ -260,7 +339,7 @@ unsigned int			*solver(unsigned int *tab, t_list *tetris, int size)
 	}
 	return (tab);
 }
-/*
+
 unsigned int			*solver(unsigned int *tab, t_list *tetris, int size)
 {
 	int		res;
