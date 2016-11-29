@@ -6,7 +6,7 @@
 #    By: jpeguet <jpeguet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/06 16:34:46 by jpeguet           #+#    #+#              #
-#    Updated: 2016/11/16 17:43:19 by jpeguet          ###   ########.fr        #
+#    Updated: 2016/11/28 23:58:25 by gmonein          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,3 +34,6 @@ fclean:	clean
 			@rm -f $(NAME)
 
 re: fclean all
+
+test:
+	gcc ./data/*.c ft_place.c ft_strlen.c ft_list_valid.c ft_new_fill.c -I fillit.h

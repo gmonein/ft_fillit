@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/28 23:33:04 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/29 00:07:37 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct				s_list
 	char					id;
 	struct s_list			*next;
 	struct s_list			*past;
+	struct s_list			*begin;
 }							t_list;
 
 typedef struct				s_list_valid
