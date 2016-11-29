@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/29 00:07:37 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/11/29 03:17:13 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct				s_list
 	unsigned int			y;
 	struct s_data			data;
 	char					id;
+	int						last_pos;
+	int						placed;
 	struct s_list			*next;
 	struct s_list			*past;
 	struct s_list			*begin;
@@ -79,6 +81,11 @@ void	*ft_memset(void *ptr, int value, size_t num);
 void		ft_list_init(t_list *lst);
 unsigned long	*ft_down_tab(unsigned long *tab, int size);
 unsigned long	*ft_decal_tab(unsigned long *tab, int size, int h, char r_or_l);
+int			ft_strlen_tab_ui(unsigned int *ui);
+char		**ft_make_char_map(int size);
+char		**ft_init_map(t_list *lst, int size, char **map);
+void		ft_print_2D(char **map, int size);
+void		ft_print_map(t_list *lst, int size);
 t_data		ft_xy_s(void);
 t_data		ft_xy_r(void);
 t_data		ft_xy_q(void);
