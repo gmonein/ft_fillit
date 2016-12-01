@@ -6,34 +6,41 @@
 #    By: jpeguet <jpeguet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/06 16:34:46 by jpeguet           #+#    #+#              #
-#    Updated: 2016/11/28 23:58:25 by gmonein          ###   ########.fr        #
+#    Updated: 2016/12/01 20:33:59 by gmonein          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all, re, clean, fclean
+CC = gcc
 
-NAME = fillit.a
+NAME = fillit
 
-HEADERS = fillit.h
+FLAGS = -Wall -Wextra -Werror
 
-SRC =
+HEADERS = include/fillit.h
 
-OBJ = $(SRC:.c=.o)
+DIR_S = sources/
 
-$(NAME):
-			@gcc -Wall -Wextra -Werror -c $(SRC) -I $(HEADERS)
-			@ar rc $(NAME) $(OBJ)
-			@ranlib $(NAME)
+SRC = $(DIR_S)ft_place.c \
+	$(DIR_S)ft_strlen.c \
+	$(DIR_S)ft_list_valid.c \
+	$(DIR_S)ft_new_fill.c \
+	$(DIR_S)ft_data_one.c \
+	$(DIR_S)ft_data_two.c \
+	$(DIR_S)ft_data_three.c \
+	$(DIR_S)ft_data_four.c \
+	$(DIR_S)ft_data_five.c \
+
+OBJS = $(SRC:.c=.o)
+
+$(NAME): $(OBJS)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 
 all: $(NAME)
 
 clean:
-			@rm -f $(OBJ)
+	rm -f $(OBJS)
 
-fclean:	clean
-			@rm -f $(NAME)
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
-
-test:
-	gcc ./data/*.c ft_place.c ft_strlen.c ft_list_valid.c ft_new_fill.c -I fillit.h

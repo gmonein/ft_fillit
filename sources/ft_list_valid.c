@@ -6,7 +6,7 @@
 /*   By: jpeguet <jpeguet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 10:54:22 by jpeguet           #+#    #+#             */
-/*   Updated: 2016/11/27 05:07:53 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 19:41:17 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static unsigned short		*tab_tetri_valid(void)
 	return (tetri_valid);
 }
 
-static t_list_valid  *ft_list_valid(int i)
+static t_list_valid			*ft_list_valid(int i)
 {
 	t_list_valid	*vlist;
 	t_list_valid	*tmp;
@@ -62,7 +62,7 @@ static t_list_valid  *ft_list_valid(int i)
 	return (vlist);
 }
 
-int  ft_check_list(t_list *lst)
+int							ft_check_list(t_list *lst)
 {
 	t_list_valid	*lva;
 	t_list_valid	*b_lva;

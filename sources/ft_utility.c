@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 14:40:03 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 16:41:48 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 19:44:33 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			ft_list_init(t_list *lst)
 	}
 }
 
-unsigned int		*ft_del_tetris(unsigned int *tab, t_list *lst)
+unsigned int	*ft_del_tetris(unsigned int *tab, t_list *lst)
 {
 	tab[lst->y + 0] ^= (lst->itetri[0] >> (lst->x));
 	tab[lst->y + 1] ^= (lst->itetri[1] >> (lst->x));
@@ -34,7 +34,7 @@ unsigned int		*ft_del_tetris(unsigned int *tab, t_list *lst)
 	return (tab);
 }
 
-unsigned int				*ft_erase_map(unsigned int *tab)
+unsigned int	*ft_erase_map(unsigned int *tab)
 {
 	int		i;
 
@@ -44,7 +44,7 @@ unsigned int				*ft_erase_map(unsigned int *tab)
 	return (tab);
 }
 
-void					ft_save_coord(t_list *lst)
+void			ft_save_coord(t_list *lst)
 {
 	while (lst->next != NULL)
 	{
@@ -52,4 +52,29 @@ void					ft_save_coord(t_list *lst)
 		lst->f_y = lst->y;
 		lst = lst->next;
 	}
+}
+
+int				ft_map_min(t_list *lst)
+{
+	int		i;
+	int		sqtr;
+	int		min;
+
+	min = 0;
+	i = 0;
+	sqtr = 1;
+	if (lst->data.len > min)
+		min = lst->data.len;
+	if (lst->data.height > min)
+		min = lst->data.height;
+	while (lst->next != NULL)
+	{
+		i = i + 4;
+		lst = lst->next;
+	}
+	while ((sqtr * sqtr) < i)
+		sqtr++;
+	if (min > sqtr)
+		return (min);
+	return (sqtr);
 }

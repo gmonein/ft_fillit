@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 01:51:25 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 18:43:28 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 19:41:26 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char		**ft_init_map(t_list *lst, int size, char **map)
 	return (map);
 }
 
-void		ft_print_2D(char **map, int size)
+void		ft_print_twod(char **map, int size)
 {
 	int		i;
 	int		j;
@@ -88,8 +88,8 @@ void		ft_print_2D(char **map, int size)
 	b_size = size + 1;
 	while (i <= size)
 	{
-		write (1, map[i], b_size);
-		write (1, "\n", 1);
+		write(1, map[i], b_size);
+		write(1, "\n", 1);
 		i++;
 	}
 }
@@ -99,11 +99,7 @@ void		ft_print_map(t_list *lst, int size)
 	char		**map;
 
 	map = ft_make_char_map(size);
-	printf("11\n");
 	map = ft_init_map(lst, size, map);
-	printf("12\n");
-	ft_print_2D(map, size);
-	printf("13\n");
+	ft_print_twod(map, size);
 	free(map);
-	printf("14\n");
 }

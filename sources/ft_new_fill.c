@@ -6,14 +6,14 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 08:12:15 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/29 01:46:27 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 19:41:19 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-int				ft_error(int error_nb)
+int					ft_error(int error_nb)
 {
 	if (error_nb == 1)
 		write(1, INVALID_MAP, ft_strlen(INVALID_MAP));
@@ -33,7 +33,7 @@ static int			ft_valid(char c, int i)
 	return (0);
 }
 
-unsigned short	ft_bits(char *s)
+unsigned short		ft_bits(char *s)
 {
 	int				i;
 	int				j;
@@ -62,7 +62,7 @@ unsigned short	ft_bits(char *s)
 	return (res);
 }
 
-t_list			*ft_new_fill(char *file)
+t_list				*ft_new_fill(char *file)
 {
 	int				fd;
 	char			buf[21];
