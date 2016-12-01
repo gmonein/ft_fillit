@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 04:49:58 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 18:18:30 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 20:38:37 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ t_data		ft_xy_f(void)
 	data.x4 = 0;
 	data.len = 2;
 	data.height = 3;
-
-	return(data);
+	return (data);
 }
 
 t_data		ft_xy_g(void)
@@ -44,8 +43,7 @@ t_data		ft_xy_g(void)
 	data.x4 = 1;
 	data.len = 2;
 	data.height = 3;
-
-	return(data);
+	return (data);
 }
 
 t_data		ft_xy_h(void)
@@ -62,8 +60,7 @@ t_data		ft_xy_h(void)
 	data.x4 = 1;
 	data.len = 3;
 	data.height = 2;
-
-	return(data);
+	return (data);
 }
 
 t_data		ft_xy_i(void)
@@ -80,8 +77,7 @@ t_data		ft_xy_i(void)
 	data.x4 = 1;
 	data.len = 2;
 	data.height = 3;
-
-	return(data);
+	return (data);
 }
 
 t_data		ft_xy_j(void)
@@ -98,6 +94,5 @@ t_data		ft_xy_j(void)
 	data.x4 = 0;
 	data.len = 2;
 	data.height = 3;
-
-	return(data);
+	return (data);
 }
