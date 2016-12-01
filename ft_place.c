@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 01:26:19 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 18:20:50 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 18:43:20 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@ int			ft_map_min(t_list *lst)
 {
 	int		i;
 	int		sqtr;
+	int		min;
 
+	min = 0;
 	i = 0;
 	sqtr = 1;
+	if (lst->data.len > min)
+		min = lst->data.len;
+	if (lst->data.height > min)
+		min = lst->data.height;
 	while (lst->next != NULL)
 	{
 		i = i + 4;
@@ -27,7 +33,8 @@ int			ft_map_min(t_list *lst)
 	}
 	while ((sqtr * sqtr) < i)
 		sqtr++;
-	printf("i = %d\nsqtr = %d\n", i, sqtr);
+	if (min > sqtr)
+		return (min);
 	return (sqtr);
 }
 
@@ -228,8 +235,9 @@ int			solver(unsigned int *tab, t_list *lst, int size)
 			if (lst->next == NULL)
 				return (size);
 		}
-		if (lst->last_pos == 1 && lst->begin == NULL)
+		if (lst->past == NULL && lst->last_pos == 1)
 		{
+			printf("MAP UP");
 			tab = ft_erase_map(tab);
 			ft_list_init(lst->begin);
 			size++;
@@ -277,15 +285,15 @@ int		main(int argc, char **argv)
 	i = 0;
 	tab = ft_setmap();
 	lst = ft_new_fill(argv[1]);
-		dprintf(1, "0\n");
+	if (!(ft_check_list(lst)))
+	{
+		printf("INVALID TETRI");
+		return (0);
+	}
 	ft_set_data_two(lst);
-		dprintf(1, "1\n");
 	ft_make_ul(lst);
-		dprintf(1, "2\n");
 	ft_make_past(lst);
-		dprintf(1, "3\n");
 	ft_list_init(lst);
-		dprintf(1, "4\n");
 	if (!(ft_check_list(lst)))
 		return (0);
 		dprintf(1, "5\n");
