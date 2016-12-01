@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/29 03:17:13 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 16:05:08 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,8 @@ t_data		ft_xy_b(void);
 t_data		ft_xy_a(void);
 void		ft_set_data_one(t_list *list);
 void		ft_set_data_two(t_list *list);
+unsigned int		*ft_del_tetris(unsigned int *tab, t_list *tetris);
+unsigned int				*ft_erase_map(unsigned int *tab);
+void					ft_save_coord(t_list *lst);
+void			ft_list_init(t_list *lst);
 #endif

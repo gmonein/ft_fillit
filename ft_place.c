@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 01:26:19 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/29 03:59:43 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 18:20:50 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int			ft_map_min(t_list *lst)
 	return (sqtr);
 }
 
-void		ft_print_ul(unsigned int num)
+void		ft_print_ul(unsigned int num, int size)
 {
 	int		i;
 
 	i = 0;
-	while (i < 32)
+	while (i < 32 && i < size)
 	{
 		if ((num & 0x80000000) > 1)
 			write(1, "1", 1);
@@ -89,16 +89,6 @@ void				ft_make_past(t_list *lst)
 	}
 }
 
-void			ft_list_init(t_list *lst)
-{
-	while (lst->next != NULL)
-	{
-		lst->x = 0;
-		lst->y = 0;
-		lst->last_pos = 0;
-		lst = lst->next;
-	}
-}
 
 void		ft_make_ul(t_list *lst)
 {
@@ -181,196 +171,80 @@ int				ft_can_i(UI *tab, t_list *tetris, int size)
 
 unsigned int	*ft_place(UI *tab, t_list *tetris)
 {
-	unsigned int	*ui_tetri;
 
-	ui_tetri = ft_short_to_ul(tetris->tetri);
-	tab[tetris->y] += (ui_tetri[0] >> tetris->x);
-	tab[tetris->y + 1] += (ui_tetri[1] >> tetris->x);
-	tab[tetris->y + 2] += (ui_tetri[2] >> tetris->x);
-	tab[tetris->y + 3] += (ui_tetri[3] >> tetris->x);
+	if (tetris->itetri == 0)
+		tetris->itetri = ft_short_to_ul(tetris->tetri);
+	tab[tetris->y] += (tetris->itetri[0] >> tetris->x);
+	tab[tetris->y + 1] += (tetris->itetri[1] >> tetris->x);
+	tab[tetris->y + 2] += (tetris->itetri[2] >> tetris->x);
+	tab[tetris->y + 3] += (tetris->itetri[3] >> tetris->x);
 	tetris->placed = 1;
 	return (tab);
 }
 
-int				ft_find_place(UI *tab, t_list *tetris, int size)
+int			ft_find_place(UI *tab, t_list *tetris, int size)
 {
 	int		res;
+
 	while (tetris->x != size && tetris->y != size)
 	{
-		res = ft_can_i(tab, tetris, size);
-		if (res == 1)
-			return (1);
+		tetris->x++;
 		if (res == -2)
 		{
 			tetris->x = 0;
 			tetris->y++;
 		}
-		if (res == -3)
-			return (-1);
-		tetris->x++;
+		res = ft_can_i(tab, tetris, size);
+		if (res == 1)
+			return (1);
 	}
 	tetris->last_pos = 1;
-	return (-2);
+	return (0);
 }
 
-unsigned int		*ft_del_tetris(t_list *tetris, unsigned int *tab)
-{
-	unsigned int	td[4];
-
-	td[0] = 1;
-	td[1] = 1;
-	td[2] = 1;
-	td[3] = 1;
-	td[0] <<= 31 - (tetris->x + tetris->data.x1);
-	td[1] <<= 31 - (tetris->x + tetris->data.x2);
-	td[2] <<= 31 - (tetris->x + tetris->data.x3);
-	td[3] <<= 31 - (tetris->x + tetris->data.x4);
-	tab[0 + tetris->y] -= td[0];
-	tab[1 + tetris->y] -= td[1];
-	tab[2 + tetris->y] -= td[2];
-	tab[3 + tetris->y] -= td[3];
-	tetris->placed = 0;
-	return (tab);
-}
-
-unsigned int				*ft_erase_map(unsigned int *tab)
+void					ft_print_ul_tab(unsigned int *tab, int size)
 {
 	int		i;
 
 	i = 0;
-	while (tab[i] != 0)
+	while (i < 32 && i < size)
 	{
-		tab[i] = 0;
-		i++;
-	}
-	return (tab);
-}
-
-void					ft_save_coord(t_list *lst)
-{
-	while (lst->next != NULL)
-	{
-		lst->f_x = lst->x;
-		lst->f_y = lst->y;
-		lst = lst->next;
-	}
-}
-
-unsigned int			*solver(unsigned int *tab, t_list *lst, int size)
-{
-	int		res;
-	int		record;
-
-	record = 999;
-	if (size < record && lst->next == NULL && lst->placed == 1)
-	{
-		ft_save_coord(lst->begin);
-		record = size;
-	}
-	if (lst->last_pos == 1)
-	{
-		if (lst->past == NULL)
-		{
-			ft_list_init(lst->begin);
-			tab = solver(tab, lst->begin, size - 1);
-		}
-		else
-		{
-			tab = ft_del_tetris(lst, tab);
-			tab = ft_del_tetris(lst->past, tab);
-			tab = solver(tab, lst->past, size);
-		}
-	}
-	else
-	{
-		res = ft_find_place(tab, lst, size);
-		if (res == 1)
-			tab = ft_place(tab, lst);
-		if (res == -1)
-		{
-			tab = ft_del_tetris(lst, tab);
-			tab = ft_del_tetris(lst->past, tab);
-			ft_find_place(tab, lst->past, size + 1);
-		}
-	}
-	return (tab);
-}
-
-/*
-unsigned int			*solver(unsigned int *tab, t_list *tetris, int size)
-{
-	int		res;
-	int		try;
-	int		i;
-
-	i = 0;
-	while (tetris->next != NULL)
-	{
-		res = ft_find_place(tab, tetris, size);
-	//	printf("%d\n", res);
-		if (res == 1)
-		{
-			printf("PLACED\n");
-			ft_place(tab, *tetris);
-	while (i < 32)
-	{
-		ft_print_ul(tab[i]);
+		ft_print_ul(tab[i], size);
 		write(1, "\n", 1);
 		i++;
 	}
-	i = 0;
-			tetris = tetris->next;
-		}
-		if (res == -1 && tetris->begin != NULL)
+	write(1, "\n", 1);
+}
+
+int			solver(unsigned int *tab, t_list *lst, int size)
+{
+	while (!(lst->placed == 1 && lst->next == NULL))
+	{
+		while (ft_find_place(tab, lst, size) && lst->next != NULL)
 		{
-			printf("ONE TETRI ERASED\n");
-			tab = ft_del_tetris(tetris, tab);
-			tetris = tetris->begin;
-			tetris->x++;
+			tab = ft_place(tab, lst);
+			if (lst->next != NULL)
+				lst = lst->next;
+			if (lst->next == NULL)
+				return (size);
 		}
-		if ((res == -1 && tetris->begin == NULL) || res == -2)
+		if (lst->last_pos == 1 && lst->begin == NULL)
 		{
-			printf("MAP ERASED\n");
 			tab = ft_erase_map(tab);
-			ft_list_init(tetris->begin);
-			tetris = tetris->begin;
+			ft_list_init(lst->begin);
 			size++;
 		}
-	}
-	return (tab);
-}
-
-unsigned int			*solver(unsigned int *tab, t_list *tetris, int size)
-{
-	int		res;
-
-	while (tetris->next != NULL)
-	{
-		res = ft_find_place(tab, tetris, size);
-		if (res == -1 && tetris->last_pos == -1)
+		if (lst->last_pos == 1 && lst->next != NULL)
 		{
-			printf("NEW MAP SIZE\n");
-			solver(tab, tetris, size + 1);
-		}
-		else if (res == -1)
-		{
-			printf("BACK IN PAST\n");
-			solver(tab, tetris->past, size);
-		}
-		else if (res == 1)
-		{
-			printf("PLACED\n");
-			ft_place(tab, *tetris);
-			tetris = tetris->next;
-		}
-		else if (res == 0)
-		{
-			printf("G RI1 FE\n");
+			lst->x = -1;
+			lst->y = 0;
+			lst = lst->past;
+			tab = ft_del_tetris(tab, lst);
 		}
 	}
-	return (tab);
+	return (size);
 }
-*/
+
 int		main(int argc, char **argv)
 {
 	t_list			*lst;
@@ -380,7 +254,26 @@ int		main(int argc, char **argv)
 	unsigned int	*tab;
 	int				i;
 	int				size;
+	char			**test;
+	int				i_test;
+	int				j_test;
 
+	i_test = 0;
+	j_test = 0;
+	test = (char **)malloc(sizeof(char *) * 5);
+	test[4] = NULL;
+	while (i_test < 4)
+	{
+		j_test = 0;
+		test[i_test] = (char *)malloc(sizeof(char) * 5);
+		while (j_test < 4)
+		{
+			test[i_test][j_test] = '.';
+			j_test++;
+		}
+		test[i_test][4] = '\0';
+		i_test++;
+	}
 	i = 0;
 	tab = ft_setmap();
 	lst = ft_new_fill(argv[1]);
@@ -396,16 +289,10 @@ int		main(int argc, char **argv)
 	if (!(ft_check_list(lst)))
 		return (0);
 		dprintf(1, "5\n");
-	tab = solver(tab, lst, 1);
+	size = solver(tab, lst->begin, ft_map_min(lst->begin));
 		dprintf(1, "6\n");
-	while (i < 32)
-	{
-		ft_print_ul(tab[i]);
-		write(1, "\n", 1);
-		i++;
-	}
 		dprintf(1, "7\n");
-	ft_print_map(lst, ft_strlen_tab_ui(tab));
+	ft_print_map(lst->begin, size - 1);
 		dprintf(1, "8\n");
 	return (0);
 }

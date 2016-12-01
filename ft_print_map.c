@@ -6,11 +6,12 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 01:51:25 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/29 01:56:24 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 17:27:20 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 int			ft_strlen_tab_ui(unsigned int *ui)
 {
@@ -44,19 +45,21 @@ char		**ft_make_char_map(int size)
 	int		b_size;
 	int		i;
 
+	i = 0;
 	b_size = size;
-	map = (char **)malloc(sizeof(char *) * size + 2);
+	map = (char **)malloc(sizeof(char *) * size + 1);
 	map[size + 1] = NULL;
-	while (size--)
+	while (size != -1)
 	{
 		map[size] = (char *)malloc(sizeof(char) * b_size + 1);
 		map[size][b_size] = '\0';
-		while (i < b_size)
+		while (i <= b_size)
 		{
 			map[size][i] = '.';
 			i++;
 		}
 		i = 0;
+		size--;
 	}
 	return (map);
 }
@@ -82,8 +85,8 @@ void		ft_print_2D(char **map, int size)
 
 	i = 0;
 	j = 0;
-	b_size = size;
-	while (size--)
+	b_size = size + 1;
+	while (i <= size)
 	{
 		write (1, map[i], b_size);
 		write (1, "\n", 1);
@@ -96,7 +99,11 @@ void		ft_print_map(t_list *lst, int size)
 	char		**map;
 
 	map = ft_make_char_map(size);
+	printf("11\n");
 	map = ft_init_map(lst, size, map);
+	printf("12\n");
 	ft_print_2D(map, size);
+	printf("13\n");
 	free(map);
+	printf("14\n");
 }

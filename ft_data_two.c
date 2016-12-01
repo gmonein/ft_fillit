@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 04:49:32 by gmonein           #+#    #+#             */
-/*   Updated: 2016/11/29 01:45:59 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/01 17:57:23 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_data		ft_xy_e(void)
 	data.x2 = 1;
 	data.x3 = 2;
 	data.x4 = 1;
-	data.len = 2;
+	data.len = 3;
 	data.height = 2;
 
 	return(data);
