@@ -6,40 +6,14 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 01:51:25 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/02 05:08:15 by jpeg             ###   ########.fr       */
+/*   Updated: 2016/12/02 19:44:41 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-int			ft_strlen_tab_ui(unsigned int *ui)
-{
-	int		i;
-	int		j;
-	int		max;
-
-	i = 0;
-	j = 0;
-	max = 0;
-	while (ui[j] != 0)
-	{
-		while (ui[j] != 0)
-		{
-			ui[j] <<= 1;
-			i++;
-		}
-		if (i > max)
-			max = i;
-		i = 0;
-		j++;
-	}
-	if (j > (max + 1))
-		max = j - 1;
-	return (max);
-}
-
-char		**ft_make_char_map(int size)
+static char		**ft_make_char_map(int size)
 {
 	char	**map;
 	int		b_size;
@@ -64,7 +38,7 @@ char		**ft_make_char_map(int size)
 	return (map);
 }
 
-char		**ft_init_map(t_list *lst, int size, char **map)
+static char		**ft_init_map(t_list *lst, char **map)
 {
 	while (lst->next != NULL && lst->x != -1)
 	{
@@ -77,7 +51,7 @@ char		**ft_init_map(t_list *lst, int size, char **map)
 	return (map);
 }
 
-void		ft_print_twod(char **map, int size)
+static void		ft_print_twod(char **map, int size)
 {
 	int		i;
 	int		j;
@@ -99,7 +73,7 @@ void		ft_print_map(t_list *lst, int size)
 	char		**map;
 
 	map = ft_make_char_map(size);
-	map = ft_init_map(lst, size, map);
+	map = ft_init_map(lst, map);
 	ft_print_twod(map, size);
 	free(map);
 }

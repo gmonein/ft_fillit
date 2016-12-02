@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 08:12:15 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 19:41:19 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/02 20:17:43 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ unsigned short		ft_bits(char *s)
 {
 	int				i;
 	int				j;
-	int				cfor;
 	unsigned short	res;
 
 	i = 0;
@@ -47,13 +46,11 @@ unsigned short		ft_bits(char *s)
 	{
 		if (s[i] == '#' || s[i] == '.')
 			res = res << 1;
-		if (s[i] == '#')
+		if (s[i++] == '#')
 			res = res + 1;
-		i++;
 		if ((s[i] != '\n' && (i + 1) % 5 == 0) || (ft_valid(s[i], i)) == 1)
 			return (ft_error(1));
-		if ((i + 1) % 5 == 0)
-			i++;
+		i = ((i + 1) % 5 == 0) ? i + 1 : i;
 	}
 	while ((res & 0x8888) == 0)
 		res = res << 1;

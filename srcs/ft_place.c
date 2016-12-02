@@ -6,14 +6,14 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 01:26:19 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/02 05:13:24 by jpeg             ###   ########.fr       */
+/*   Updated: 2016/12/02 19:46:11 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-int				ft_can_i(UI *tab, t_list *tetris, int size)
+static int				ft_can_i(UI *tab, t_list *tetris, int size)
 {
 	if (tetris->x + tetris->data.len > size)
 		return (-2);
@@ -30,7 +30,7 @@ int				ft_can_i(UI *tab, t_list *tetris, int size)
 	return (1);
 }
 
-unsigned int	*ft_place(UI *tab, t_list *tetris)
+static unsigned int	*ft_place(UI *tab, t_list *tetris)
 {
 	if (tetris->itetri == 0)
 		tetris->itetri = ft_short_to_ul(tetris->tetri);
@@ -42,7 +42,7 @@ unsigned int	*ft_place(UI *tab, t_list *tetris)
 	return (tab);
 }
 
-int				ft_find_place(UI *tab, t_list *tetris, int size)
+static int			ft_find_place(UI *tab, t_list *tetris, int size)
 {
 	int		res;
 
@@ -67,7 +67,7 @@ int				ft_find_place(UI *tab, t_list *tetris, int size)
 	return (0);
 }
 
-int				ft_isallplaced(t_list *lst)
+static int			ft_isallplaced(t_list *lst)
 {
 	lst = lst->begin;
 

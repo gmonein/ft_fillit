@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/02 04:13:50 by jpeg             ###   ########.fr       */
+/*   Updated: 2016/12/02 19:58:41 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # define UL		unsigned long
 # define UI		unsigned int
 # define ULM	0x80000000
-# define MALLOC_ERROR	"Memory allocation failed\n"
-# define INVALID_MAP	"Invalid tetrinos format\n"
-# define CARIOT_RETURN	"Too many //n at the end file\n"
-# define TOO_SHORT_LEN	"File len less than 20\n"
+# define MALLOC_ERROR	"error\n"
+# define INVALID_MAP	"error\n"
+# define CARIOT_RETURN	"error\n"
+# define TOO_SHORT_LEN	"error\n"
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -91,14 +91,7 @@ int							main(int argc, char **argv);
 int							ft_error(int error_nb);
 unsigned short				ft_bits(char *s);
 t_list						*ft_new_fill(char *file);
-int							ft_can_i(UI *tab, t_list *tetris, int size);
-unsigned int				*ft_place(UI *tab, t_list *tetris);
-int							ft_find_place(UI *tab, t_list *tetris, int size);
 int							solver(unsigned int *tab, t_list *lst, int size);
-int							ft_strlen_tab_ui(unsigned int *ui);
-char						**ft_make_char_map(int size);
-char						**ft_init_map(t_list *lst, int size, char **map);
-void						ft_print_twod(char **map, int size);
 void						ft_print_map(t_list *lst, int size);
 int							ft_strlen(char *str);
 void						ft_list_init(t_list *lst);
