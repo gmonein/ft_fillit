@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 01:51:25 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 19:41:26 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/02 05:08:15 by jpeg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char		**ft_make_char_map(int size)
 
 char		**ft_init_map(t_list *lst, int size, char **map)
 {
-	while (lst->next != NULL)
+	while (lst->next != NULL && lst->x != -1)
 	{
 		map[lst->y + lst->data.y1][lst->x + lst->data.x1] = lst->id;
 		map[lst->y + lst->data.y2][lst->x + lst->data.x2] = lst->id;
