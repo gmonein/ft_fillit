@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 20:40:46 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/02 04:13:50 by jpeg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct				s_list
 {
 	unsigned short			tetri;
 	unsigned int			*itetri;
-	unsigned int			x;
-	unsigned int			y;
+	int			x;
+	int			y;
 	struct s_data			data;
 	char					id;
 	int						last_pos;
@@ -104,6 +104,5 @@ int							ft_strlen(char *str);
 void						ft_list_init(t_list *lst);
 unsigned int				*ft_del_tetris(unsigned int *tab, t_list *lst);
 unsigned int				*ft_erase_map(unsigned int *tab);
-void						ft_save_coord(t_list *lst);
 int							ft_map_min(t_list *lst);
 #endif

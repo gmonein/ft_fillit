@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utility.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 14:40:03 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/01 19:44:33 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/02 04:07:43 by jpeg             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,6 @@ unsigned int	*ft_erase_map(unsigned int *tab)
 	while (i--)
 		tab[i] = 0;
 	return (tab);
-}
-
-void			ft_save_coord(t_list *lst)
-{
-	while (lst->next != NULL)
-	{
-		lst->f_x = lst->x;
-		lst->f_y = lst->y;
-		lst = lst->next;
-	}
 }
 
 int				ft_map_min(t_list *lst)
