@@ -6,30 +6,41 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 08:12:15 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/02 20:17:43 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/03 01:38:47 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 int					ft_error(int error_nb)
 {
-	if (error_nb == 1)
+	if (error_nb > 0)
+	{
 		write(1, INVALID_MAP, ft_strlen(INVALID_MAP));
-	if (error_nb == 2)
-		write(1, MALLOC_ERROR, ft_strlen(MALLOC_ERROR));
-	if (error_nb == 4)
-		write(1, CARIOT_RETURN, ft_strlen(CARIOT_RETURN));
-	if (error_nb == 5)
-		write(1, TOO_SHORT_LEN, ft_strlen(TOO_SHORT_LEN));
+		exit(EXIT_FAILURE);
+	}
 	return (-1);
 }
 
-static int			ft_valid(char c, int i)
+static int			ft_valid(char *s)
 {
-	if ((i + 1) % 5 != 0 && c != '.' && c != '#')
-		return (1);
+	int i;
+	int diez;
+	int point;
+	int	bsn;
+
+	i = -1;
+	bsn = 0;
+	point = 0;
+	diez = 0;
+	while ((s[++i] != '\n' || s[i + 1] != '\n') && s[i])
+	{
+		point = (s[i] == '.') ? point + 1 : point;
+		diez = (s[i] == '#') ? diez + 1 : diez;
+		bsn = (s[i] == '\n') ? bsn + 1 : bsn;
+	}
+	if (bsn != 4 || point != 12 || diez != 4)
+		return (ft_error(1));
 	return (0);
 }
 
@@ -42,13 +53,14 @@ unsigned short		ft_bits(char *s)
 	i = 0;
 	j = 0;
 	res = 0;
+	ft_valid(s);
 	while (s[i])
 	{
 		if (s[i] == '#' || s[i] == '.')
 			res = res << 1;
 		if (s[i++] == '#')
 			res = res + 1;
-		if ((s[i] != '\n' && (i + 1) % 5 == 0) || (ft_valid(s[i], i)) == 1)
+		if ((s[i] != '\n' && (i + 1) % 5 == 0))
 			return (ft_error(1));
 		i = ((i + 1) % 5 == 0) ? i + 1 : i;
 	}
@@ -75,7 +87,7 @@ t_list				*ft_new_fill(char *file)
 	while (readed == 42 || readed == 1)
 	{
 		readed = read(fd, buf, 20);
-		buf[20] = '\0';
+		buf[readed] = '\0';
 		if ((lst->tetri = ft_bits(buf)) == 65535)
 			return (NULL);
 		lst->next = (t_list *)malloc(sizeof(t_list));
@@ -85,5 +97,5 @@ t_list				*ft_new_fill(char *file)
 		buf[1] = '\0';
 	}
 	close(fd);
-	return ((!(readed == 0) && ft_error(5)) ? NULL : tmp);
+	return ((!(readed == 0) && ft_error(1)) ? NULL : tmp);
 }

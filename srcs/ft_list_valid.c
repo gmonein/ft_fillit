@@ -6,12 +6,11 @@
 /*   By: jpeguet <jpeguet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 10:54:22 by jpeguet           #+#    #+#             */
-/*   Updated: 2016/12/01 19:41:17 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/03 01:43:54 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 static unsigned short		*tab_tetri_valid(void)
 {
@@ -80,7 +79,7 @@ int							ft_check_list(t_list *lst)
 		}
 		lva = b_lva;
 		if (valid == 0)
-			return (0);
+			return (ft_error(1));
 		valid = 0;
 		lst = lst->next;
 	}

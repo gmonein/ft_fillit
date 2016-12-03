@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/02 19:58:41 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/03 01:31:19 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 # define FILLIT_H
 
 # define US		unsigned short
-# define UL		unsigned long
 # define UI		unsigned int
-# define ULM	0x80000000
-# define MALLOC_ERROR	"error\n"
 # define INVALID_MAP	"error\n"
-# define CARIOT_RETURN	"error\n"
-# define TOO_SHORT_LEN	"error\n"
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -44,8 +39,8 @@ typedef struct				s_list
 {
 	unsigned short			tetri;
 	unsigned int			*itetri;
-	int			x;
-	int			y;
+	int						x;
+	int						y;
 	struct s_data			data;
 	char					id;
 	int						last_pos;
@@ -98,4 +93,5 @@ void						ft_list_init(t_list *lst);
 unsigned int				*ft_del_tetris(unsigned int *tab, t_list *lst);
 unsigned int				*ft_erase_map(unsigned int *tab);
 int							ft_map_min(t_list *lst);
+void						ft_bzero(void *s, size_t n);
 #endif

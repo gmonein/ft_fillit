@@ -6,12 +6,11 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 01:51:25 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/02 19:44:41 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/03 01:41:15 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 static char		**ft_make_char_map(int size)
 {
@@ -68,10 +67,11 @@ static void		ft_print_twod(char **map, int size)
 	}
 }
 
-void		ft_print_map(t_list *lst, int size)
+void			ft_print_map(t_list *lst, int size)
 {
 	char		**map;
 
+	size--;
 	map = ft_make_char_map(size);
 	map = ft_init_map(lst, map);
 	ft_print_twod(map, size);
